@@ -4,30 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>安田組織デザイン｜製造業・中小企業の組織開発顧問</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+      font-family: 'Noto Sans JP', 'Hiragino Sans', sans-serif;
+      font-feature-settings: "palt";
       color: #333;
       background: #fff;
       line-height: 1.8;
     }
     a { color: inherit; text-decoration: none; }
 
-    /* ===== 配色変数（紺一色） ===== */
     :root {
-      --navy:      #1a3560;
-      --navy-dark: #122547;
-      --navy-mid:  #2a4f82;
-      --navy-light: #4a72a8;
-      --navy-pale: #eef2f8;
-      --navy-mid2: #d8e3f0;
-      /* グリーン変数はnavyで上書き（後方互換） */
-      --green:      #4a72a8;
-      --green-light: #8aaad0;
-      --green-pale:  #eef2f8;
-      --green-mid:   #d8e3f0;
+      --navy:       #1a3560;
+      --navy-dark:  #0f1e38;
+      --navy-mid:   #2a4f82;
+      --navy-light: #3d6499;
+      --navy-pale:  #f0f4fa;
+      --navy-mid2:  #d0dcef;
     }
 
     /* ===== ナビゲーション ===== */
@@ -38,51 +34,122 @@
       backdrop-filter: blur(6px);
       z-index: 100;
       padding: 0 2rem;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    header.scrolled {
+      background: rgba(15,30,56,0.99);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
     }
     nav {
-      max-width: 1000px;
+      max-width: 1040px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
       height: 64px;
     }
-    .logo {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #fff;
-      letter-spacing: 0.1em;
-    }
-    .logo span { color: var(--green-light); }
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-      font-size: 0.88rem;
-    }
+    .logo { font-size: 1.05rem; font-weight: 800; color: #fff; letter-spacing: 0.08em; }
+    .logo span { color: #8aaad0; }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; font-size: 0.86rem; }
     .nav-links a { color: #ccd8ec; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--green-light); }
+    .nav-links a:hover { color: #fff; }
+    .nav-cta {
+      background: #fff !important;
+      color: var(--navy) !important;
+      padding: 0.4rem 1.1rem;
+      border-radius: 4px;
+      font-weight: 700;
+      transition: opacity 0.2s !important;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* ハンバーガー */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 6px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* モバイルメニュー */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 64px 0 0 0;
+      background: var(--navy-dark);
+      z-index: 99;
+      flex-direction: column;
+      padding: 2rem;
+      gap: 0;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: #ccd8ec;
+      font-size: 1.05rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      font-weight: 500;
+    }
+    .mobile-menu a:last-child { border: none; }
 
     /* ===== セクション共通 ===== */
-    section { padding: 5rem 2rem; }
-    .container { max-width: 880px; margin: 0 auto; }
+    section { padding: 5.5rem 2rem; }
+    .container { max-width: 900px; margin: 0 auto; }
     .section-label {
       font-size: 0.72rem;
-      letter-spacing: 0.25em;
+      letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: var(--green);
-      margin-bottom: 0.4rem;
-      font-weight: 600;
+      color: var(--navy-light);
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 1.8rem;
+      height: 2px;
+      background: var(--navy-light);
     }
     h2 {
-      font-size: 1.7rem;
+      font-size: 1.75rem;
       color: var(--navy);
-      margin-bottom: 2rem;
-      padding-bottom: 0.75rem;
-      border-bottom: 2px solid var(--green-mid);
+      margin-bottom: 2.2rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 2px solid var(--navy-mid2);
+      line-height: 1.4;
     }
 
-    /* ===== ヒーロー：青空・草原 ===== */
+    /* ===== フェードイン ===== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .fade-in-d1 { transition-delay: 0.1s; }
+    .fade-in-d2 { transition-delay: 0.2s; }
+    .fade-in-d3 { transition-delay: 0.3s; }
+    .fade-in-d4 { transition-delay: 0.4s; }
+    .fade-in-d5 { transition-delay: 0.5s; }
+
+    /* ===== ヒーロー ===== */
     #hero {
       position: relative;
       min-height: 100vh;
@@ -91,8 +158,6 @@
       overflow: hidden;
       padding: 0;
     }
-
-    /* 背景写真（朝の草原・青空） */
     .sky {
       position: absolute;
       inset: 0;
@@ -100,233 +165,313 @@
       background-size: cover;
       background-position: center 30%;
     }
-
-    /* 写真の上に薄い紺のオーバーレイ（テキスト読みやすく） */
-    .sunlight {
+    .overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(
-        180deg,
-        rgba(20,45,90,0.30) 0%,
-        rgba(20,45,90,0.15) 40%,
-        rgba(10,30,60,0.40) 100%
+      background: linear-gradient(180deg,
+        rgba(15,30,56,0.45) 0%,
+        rgba(15,30,56,0.25) 40%,
+        rgba(10,25,50,0.55) 100%
       );
-      pointer-events: none;
     }
-
-    /* 雲・草原は写真で代替するため非表示 */
-    .clouds, .meadow { display: none; }
-
-    /* ヒーローテキスト */
     .hero-content {
       position: relative;
       z-index: 2;
       text-align: center;
-      padding: 8rem 2rem 18vw;
+      padding: 9rem 2rem 6rem;
       width: 100%;
     }
     .hero-tagline {
-      font-size: 0.82rem;
-      letter-spacing: 0.28em;
-      color: var(--green-light);
+      font-size: 0.8rem;
+      letter-spacing: 0.3em;
+      color: #8aaad0;
       font-weight: 700;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.4rem;
     }
     #hero h1 {
-      font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+      font-size: clamp(1.9rem, 4vw, 3.2rem);
       color: #fff;
-      line-height: 1.55;
-      margin-bottom: 1.4rem;
-      text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+      line-height: 1.5;
+      margin-bottom: 1.6rem;
+      font-weight: 800;
+      text-shadow: 0 2px 16px rgba(0,0,0,0.45);
     }
-    #hero p {
+    #hero h1 em {
+      font-style: normal;
+      color: #fbbf24;
+    }
+    #hero .hero-lead {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.88);
+      max-width: 600px;
+      margin: 0 auto 2.4rem;
+      line-height: 1.95;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+    }
+    .hero-cta-group {
+      display: flex;
+      gap: 1.2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 1rem 2.6rem;
+      background: #D97706;
+      color: #fff;
+      border-radius: 5px;
       font-size: 0.98rem;
-      color: #ddeef8;
-      max-width: 580px;
-      margin: 0 auto 2.2rem;
-      line-height: 1.9;
-      text-shadow: 0 1px 6px rgba(0,0,0,0.35);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      box-shadow: 0 4px 18px rgba(217,119,6,0.45);
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
     }
-    .btn {
-      display: inline-block;
-      padding: 0.9rem 2.6rem;
-      background: var(--navy);
+    .btn-primary:hover { background: #B45309; transform: translateY(-2px); box-shadow: 0 6px 22px rgba(217,119,6,0.45); }
+    .btn-primary::after { content: ' →'; }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: transparent;
       color: #fff;
-      border-radius: 4px;
+      border: 2px solid rgba(255,255,255,0.65);
+      border-radius: 5px;
       font-size: 0.95rem;
-      letter-spacing: 0.06em;
-      transition: background 0.2s, transform 0.15s;
-      box-shadow: 0 3px 12px rgba(26,53,96,0.25);
+      font-weight: 600;
+      transition: background 0.2s, border-color 0.2s;
     }
-    .btn:hover { background: var(--navy-dark); transform: translateY(-1px); }
+    .btn-secondary:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+    .hero-note {
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.05em;
+    }
+
+    /* ===== 数字バナー ===== */
+    #numbers { background: var(--navy-dark); padding: 3rem 2rem; }
+    .numbers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 2rem;
+      text-align: center;
+    }
+    .number-item {}
+    .number-main {
+      display: block;
+      font-size: 2.6rem;
+      font-weight: 800;
+      color: #8aaad0;
+      line-height: 1.1;
+      margin-bottom: 0.4rem;
+    }
+    .number-main small { font-size: 1rem; font-weight: 600; }
+    .number-label { font-size: 0.8rem; color: #ccd8ec; line-height: 1.5; }
+
+    /* ===== 課題セクション ===== */
+    #issues { background: var(--navy-pale); }
+    .issues-intro {
+      font-size: 1.05rem;
+      color: var(--navy);
+      font-weight: 700;
+      margin-bottom: 1.8rem;
+    }
+    .issues-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+    .issues-list li {
+      background: #fff;
+      border-left: 4px solid var(--navy-mid);
+      border-radius: 5px;
+      padding: 1.1rem 1.4rem;
+      font-size: 0.93rem;
+      color: #444;
+      line-height: 1.7;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .issues-list li strong { color: var(--navy); font-size: 0.95rem; }
+    .issues-list li span { color: #888; font-size: 0.83rem; }
 
     /* ===== サービス ===== */
     #services { background: #fff; }
     .services-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.4rem;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 1.6rem;
     }
     .service-card {
-      border: 1px solid var(--green-mid);
+      border: 1px solid var(--navy-mid2);
       border-top: 3px solid var(--navy-mid);
       border-radius: 6px;
-      padding: 1.8rem 1.6rem;
-      transition: box-shadow 0.2s, transform 0.15s;
+      padding: 2rem 1.8rem;
+      transition: box-shadow 0.3s, transform 0.3s;
       background: #fff;
     }
-    .service-card:hover {
-      box-shadow: 0 6px 24px rgba(26,53,96,0.1);
-      transform: translateY(-2px);
-    }
-    .service-num {
-      font-size: 1.4rem;
-      font-weight: 800;
-      color: var(--green);
-      margin-bottom: 0.5rem;
-      font-variant-numeric: tabular-nums;
-    }
-    .service-card h3 {
-      font-size: 1rem;
-      color: var(--navy);
-      margin-bottom: 0.6rem;
-      line-height: 1.5;
-    }
-    .service-card p {
-      font-size: 0.86rem;
-      color: #666;
-      line-height: 1.75;
-    }
-
-    /* ===== 課題セクション ===== */
-    #issues { background: var(--green-pale); }
-    .issues-list {
-      list-style: none;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1rem;
-    }
-    .issues-list li {
-      background: #fff;
-      border-left: 4px solid var(--navy-mid);
-      border-radius: 4px;
-      padding: 1rem 1.2rem;
-      font-size: 0.9rem;
-      color: #444;
-      line-height: 1.65;
-    }
-    .issues-list li::before {
-      content: '✓ ';
-      color: var(--navy-mid);
-      font-weight: 700;
-    }
+    .service-card:hover { box-shadow: 0 10px 30px rgba(26,53,96,0.12); transform: translateY(-4px); }
+    .service-num { font-size: 1.3rem; font-weight: 800; color: var(--navy-mid); margin-bottom: 0.6rem; }
+    .service-card h3 { font-size: 1rem; color: var(--navy); margin-bottom: 0.7rem; line-height: 1.5; font-weight: 700; }
+    .service-card p { font-size: 0.88rem; color: #555; line-height: 1.8; }
 
     /* ===== 強み ===== */
-    #strengths { background: #fff; }
+    #strengths { background: var(--navy-pale); }
     .strength-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.6rem;
     }
     .strength-card {
-      background: var(--navy-pale);
+      background: #fff;
       border-radius: 8px;
-      padding: 1.8rem 1.5rem;
+      padding: 2rem 1.8rem;
       text-align: center;
+      border: 1px solid var(--navy-mid2);
+      transition: box-shadow 0.2s;
     }
-    .strength-icon { font-size: 2.4rem; margin-bottom: 0.8rem; }
-    .strength-card h3 {
-      font-size: 1rem;
+    .strength-card:hover { box-shadow: 0 6px 20px rgba(26,53,96,0.1); }
+    .strength-icon { font-size: 2.4rem; margin-bottom: 0.9rem; }
+    .strength-card h3 { font-size: 1.05rem; color: var(--navy); margin-bottom: 0.6rem; font-weight: 700; }
+    .strength-card p { font-size: 0.88rem; color: #555; line-height: 1.75; }
+
+    /* ===== 中間CTA ===== */
+    #mid-cta { background: var(--navy); padding: 4rem 2rem; text-align: center; }
+    #mid-cta .mid-label { font-size: 0.72rem; letter-spacing: 0.3em; color: #8aaad0; font-weight: 700; margin-bottom: 0.8rem; }
+    #mid-cta h2 { color: #fff; border: none; font-size: 1.45rem; margin-bottom: 1rem; line-height: 1.6; }
+    #mid-cta p { color: #ccd8ec; font-size: 0.92rem; margin-bottom: 2rem; line-height: 1.9; }
+    .btn-white {
+      display: inline-block;
+      padding: 1rem 2.8rem;
+      background: #fff;
       color: var(--navy);
-      margin-bottom: 0.6rem;
+      border-radius: 5px;
       font-weight: 700;
+      font-size: 0.96rem;
+      letter-spacing: 0.05em;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      transition: opacity 0.2s, transform 0.15s;
     }
-    .strength-card p { font-size: 0.86rem; color: #555; line-height: 1.7; }
+    .btn-white:hover { opacity: 0.9; transform: translateY(-1px); }
+    #mid-cta .cta-note { margin-top: 1rem; font-size: 0.78rem; color: #8aaad0; }
 
     /* ===== プロフィール ===== */
-    #profile { background: var(--green-pale); }
-    .profile-inner {
-      display: flex;
-      gap: 3rem;
-      align-items: flex-start;
-    }
+    #profile { background: #fff; }
+    .profile-inner { display: flex; gap: 3rem; align-items: flex-start; }
     .profile-avatar {
-      width: 130px;
-      height: 130px;
+      width: 140px; height: 140px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy-dark) 100%);
       flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2.8rem;
+      font-size: 3rem;
+      border: 4px solid var(--navy-mid2);
     }
-    .profile-text h3 {
-      font-size: 1.4rem;
-      color: var(--navy);
-      margin-bottom: 0.2rem;
-    }
-    .profile-text .role {
-      font-size: 0.84rem;
-      color: var(--navy-mid);
-      margin-bottom: 1.2rem;
-      font-weight: 600;
-    }
-    .profile-text p {
-      font-size: 0.9rem;
-      color: #555;
-      margin-bottom: 0.8rem;
-    }
-    .career-label {
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--navy);
-      margin-top: 1.2rem;
-      margin-bottom: 0.3rem;
-      letter-spacing: 0.05em;
-    }
+    .profile-text h3 { font-size: 1.45rem; color: var(--navy); margin-bottom: 0.2rem; font-weight: 800; }
+    .profile-text .role { font-size: 0.85rem; color: var(--navy-mid); margin-bottom: 1.2rem; font-weight: 600; }
+    .profile-text p { font-size: 0.9rem; color: #555; margin-bottom: 0.8rem; line-height: 1.85; }
+    .career-label { font-size: 0.78rem; font-weight: 700; color: var(--navy); margin-top: 1.2rem; margin-bottom: 0.3rem; letter-spacing: 0.08em; text-transform: uppercase; }
 
-    /* 実績タイムライン */
     .achievements {
+      background: var(--navy-pale);
+      border-radius: 8px;
+      padding: 2rem 2.2rem;
       margin-top: 2.5rem;
-      border-top: 1px solid var(--green-mid);
-      padding-top: 2rem;
+      border: 1px solid var(--navy-mid2);
     }
-    .achievements h4 {
-      font-size: 1rem;
-      color: var(--navy);
-      margin-bottom: 1rem;
-      font-weight: 700;
-    }
-    .achievement-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.7rem;
-    }
+    .achievements h4 { font-size: 0.95rem; color: var(--navy); margin-bottom: 1rem; font-weight: 700; }
+    .achievement-list { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
     .achievement-list li {
       padding-left: 1.4rem;
       position: relative;
-      font-size: 0.88rem;
+      font-size: 0.89rem;
       color: #555;
-      line-height: 1.65;
+      line-height: 1.7;
     }
     .achievement-list li::before {
       content: '▶';
-      position: absolute;
-      left: 0;
+      position: absolute; left: 0;
       color: var(--navy-mid);
       font-size: 0.7rem;
-      top: 0.25rem;
+      top: 0.28rem;
     }
+
+    /* ===== FAQ ===== */
+    #faq { background: var(--navy-pale); }
+    .faq-list { display: flex; flex-direction: column; gap: 1rem; }
+    details {
+      background: #fff;
+      border-radius: 6px;
+      border: 1px solid var(--navy-mid2);
+      overflow: hidden;
+    }
+    summary {
+      font-weight: 700;
+      color: var(--navy);
+      font-size: 0.95rem;
+      padding: 1.3rem 1.6rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      list-style: none;
+      transition: background 0.2s;
+    }
+    summary:hover { background: var(--navy-pale); }
+    summary::-webkit-details-marker { display: none; }
+    .faq-icon { font-size: 1.2rem; color: var(--navy-mid); transition: transform 0.2s; }
+    details[open] .faq-icon { transform: rotate(45deg); }
+    .faq-answer { padding: 0 1.6rem 1.4rem; font-size: 0.9rem; color: #555; line-height: 1.8; }
 
     /* ===== お問い合わせ ===== */
     #contact { background: #fff; }
-    .contact-intro {
-      font-size: 0.95rem;
-      color: #555;
-      margin-bottom: 2rem;
+    .contact-steps {
+      background: var(--navy-pale);
+      border-radius: 10px;
+      padding: 2.2rem 2rem;
+      margin-bottom: 3rem;
     }
+    .contact-steps h3 { font-size: 1rem; color: var(--navy); margin-bottom: 1.8rem; font-weight: 700; text-align: center; }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+      text-align: center;
+    }
+    .step-num {
+      display: inline-flex;
+      width: 2.6rem; height: 2.6rem;
+      background: var(--navy);
+      color: #fff;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1rem;
+      margin-bottom: 0.8rem;
+    }
+    .step h4 { font-size: 0.95rem; color: var(--navy); margin-bottom: 0.4rem; font-weight: 700; }
+    .step p { font-size: 0.84rem; color: #666; line-height: 1.6; }
+
+    .trust-badges {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+    }
+    .trust-badges span {
+      font-size: 0.85rem;
+      color: var(--navy-mid);
+      font-weight: 600;
+      padding: 0.45rem 1.1rem;
+      background: var(--navy-pale);
+      border-radius: 999px;
+      border: 1px solid var(--navy-mid2);
+    }
+
+    .contact-intro { font-size: 0.95rem; color: #555; margin-bottom: 2rem; line-height: 1.85; }
     form { display: flex; flex-direction: column; gap: 1.2rem; }
     label { font-size: 0.84rem; color: #444; font-weight: 600; }
     input, textarea, select {
@@ -339,23 +484,25 @@
       margin-top: 0.3rem;
       transition: border-color 0.2s;
     }
-    input:focus, textarea:focus, select:focus {
-      outline: none;
-      border-color: var(--green);
-    }
+    input:focus, textarea:focus, select:focus { outline: none; border-color: var(--navy-mid); }
     textarea { height: 140px; resize: vertical; }
     .submit-btn {
-      align-self: flex-start;
-      padding: 0.9rem 3rem;
-      background: var(--navy);
+      width: 100%;
+      max-width: 360px;
+      align-self: center;
+      padding: 1rem;
+      background: #D97706;
       color: #fff;
       border: none;
-      border-radius: 4px;
-      font-size: 0.95rem;
+      border-radius: 5px;
+      font-size: 0.98rem;
+      font-weight: 700;
       cursor: pointer;
-      transition: background 0.2s;
+      letter-spacing: 0.04em;
+      box-shadow: 0 3px 12px rgba(217,119,6,0.3);
+      transition: background 0.2s, transform 0.15s;
     }
-    .submit-btn:hover { background: var(--navy-dark); }
+    .submit-btn:hover { background: #B45309; transform: translateY(-1px); }
 
     /* ===== フッター ===== */
     footer {
@@ -365,83 +512,128 @@
       padding: 2.5rem 2rem;
       font-size: 0.82rem;
     }
-    footer .footer-name { color: #fff; font-weight: 700; font-size: 1rem; }
+    footer .footer-name { color: #fff; font-weight: 800; font-size: 1rem; }
     footer .footer-copy { margin-top: 0.5rem; }
 
     /* ===== レスポンシブ ===== */
-    @media (max-width: 640px) {
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
       .nav-links { display: none; }
+      .hero-content { padding: 8rem 1.5rem 5rem; }
+      #hero h1 { font-size: clamp(1.7rem, 6vw, 2.4rem); }
       .profile-inner { flex-direction: column; align-items: center; text-align: center; }
       h2 { font-size: 1.4rem; }
-      .hero-content { padding-bottom: 38vw; }
+      .strength-grid { grid-template-columns: 1fr; }
+      .hero-cta-group { flex-direction: column; align-items: center; }
+      .submit-btn { max-width: 100%; }
     }
   </style>
 </head>
 <body>
 
 <!-- ナビゲーション -->
-<header>
+<header id="site-header">
   <nav>
-    <div class="logo">安田<span style="color:#8aaad0">組織</span>デザイン</div>
+    <div class="logo">安田<span>組織</span>デザイン</div>
     <ul class="nav-links">
+      <li><a href="#issues">課題</a></li>
       <li><a href="#services">サービス</a></li>
-      <li><a href="#issues">こんな課題に</a></li>
       <li><a href="#strengths">強み</a></li>
       <li><a href="#profile">プロフィール</a></li>
-      <li><a href="#contact">お問い合わせ</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact" class="nav-cta">無料相談</a></li>
     </ul>
+    <button class="hamburger" id="hamburger" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 </header>
 
-<!-- ヒーロー：青空・草原 -->
+<!-- モバイルメニュー -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#issues" onclick="closeMenu()">課題</a>
+  <a href="#services" onclick="closeMenu()">サービス</a>
+  <a href="#strengths" onclick="closeMenu()">強み</a>
+  <a href="#profile" onclick="closeMenu()">プロフィール</a>
+  <a href="#faq" onclick="closeMenu()">よくある質問</a>
+  <a href="#contact" onclick="closeMenu()" style="color:#fbbf24;font-weight:700;">→ 無料相談する</a>
+</div>
+
+<!-- ヒーロー -->
 <section id="hero">
-  <!-- 空 -->
   <div class="sky"></div>
-  <!-- 朝の光 -->
-  <div class="sunlight"></div>
-  <!-- 雲 -->
-  <div class="clouds">
-    <div class="cloud cloud-1"></div>
-    <div class="cloud cloud-2"></div>
-    <div class="cloud cloud-3"></div>
-  </div>
-
-  <!-- 草原SVG -->
-  <div class="meadow">
-    <svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="width:100%;display:block;">
-      <!-- 遠景の丘（薄い緑） -->
-      <path d="M0,200 C180,140 360,180 540,160 C720,140 900,170 1080,150 C1260,130 1380,165 1440,155 L1440,320 L0,320 Z" fill="#b8dfc8" opacity="0.6"/>
-      <!-- 中景の丘 -->
-      <path d="M0,230 C200,180 400,210 600,195 C800,180 1000,215 1200,200 C1320,192 1400,208 1440,205 L1440,320 L0,320 Z" fill="#8dcaaa" opacity="0.75"/>
-      <!-- 前景の草原 -->
-      <path d="M0,260 C150,230 350,255 550,240 C750,225 950,258 1150,245 C1300,236 1400,252 1440,250 L1440,320 L0,320 Z" fill="#6ab894"/>
-      <!-- 地面 -->
-      <rect x="0" y="300" width="1440" height="20" fill="#5aaa83"/>
-      <!-- 草の筆致 -->
-      <g opacity="0.5" fill="#4a9870">
-        <ellipse cx="120" cy="258" rx="12" ry="6"/>
-        <ellipse cx="280" cy="248" rx="9" ry="5"/>
-        <ellipse cx="450" cy="255" rx="14" ry="6"/>
-        <ellipse cx="620" cy="245" rx="10" ry="5"/>
-        <ellipse cx="780" cy="252" rx="13" ry="6"/>
-        <ellipse cx="950" cy="248" rx="11" ry="5"/>
-        <ellipse cx="1100" cy="255" rx="12" ry="6"/>
-        <ellipse cx="1280" cy="250" rx="10" ry="5"/>
-        <ellipse cx="1400" cy="258" rx="9" ry="5"/>
-      </g>
-    </svg>
-  </div>
-
-  <!-- テキスト -->
+  <div class="overlay"></div>
   <div class="hero-content">
-    <p class="hero-tagline">組織開発顧問 ｜ 製造業・中小企業専門</p>
-    <h1>現場を知り尽くした、<br>製造業のための<br>組織開発パートナー</h1>
-    <p>
-      40年にわたるものづくり現場の経験と、<br>
-      従業員エンゲージメント調査・生成AI活用の実務を掛け合わせ、<br>
-      製造・開発組織の課題を「現場が納得して動く施策」に変えます。
+    <p class="hero-tagline fade-in">製造業・中小企業の組織開発顧問｜40年の現場経験から</p>
+    <h1 class="fade-in fade-in-d1">
+      「調査はやった。<br>でも、<em>何も変わらなかった</em>」<br>
+      その悩み、解決します。
+    </h1>
+    <p class="hero-lead fade-in fade-in-d2">
+      オリンパスで4,000人規模の組織開発を主導してきた現場経験者が、<br>
+      エンゲージメント調査の結果を「現場が納得して動く施策」へ変える<br>
+      伴走支援を提供します。
     </p>
-    <a href="#contact" class="btn">まずは無料相談する</a>
+    <div class="hero-cta-group fade-in fade-in-d3">
+      <a href="#contact" class="btn-primary">15分・無料で相談してみる</a>
+      <a href="#services" class="btn-secondary">サービスを見る</a>
+    </div>
+    <p class="hero-note fade-in fade-in-d4">※ 売り込みは一切しません。まずお話を聞かせてください。</p>
+  </div>
+</section>
+
+<!-- 数字バナー -->
+<section id="numbers">
+  <div class="container">
+    <div class="numbers-grid">
+      <div class="number-item fade-in">
+        <span class="number-main">40<small>年</small></span>
+        <span class="number-label">製造・開発現場での<br>実務経験</span>
+      </div>
+      <div class="number-item fade-in fade-in-d1">
+        <span class="number-main">4,000<small>人</small></span>
+        <span class="number-label">エンゲージメント調査を<br>主導した組織規模</span>
+      </div>
+      <div class="number-item fade-in fade-in-d2">
+        <span class="number-main">5<small>年以上</small></span>
+        <span class="number-label">組織開発・エンゲージメント<br>領域の実務</span>
+      </div>
+      <div class="number-item fade-in fade-in-d3">
+        <span class="number-main">初回<small>無料</small></span>
+        <span class="number-label">相談料・提案料<br>一切なし</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 課題共感 -->
+<section id="issues">
+  <div class="container">
+    <p class="section-label">For You</p>
+    <h2 class="fade-in">これ、あなたの会社の<br>話ではありませんか？</h2>
+    <p class="issues-intro fade-in">製造業の経営者・人事担当者から、こんなお声をよく伺います。</p>
+    <ul class="issues-list">
+      <li class="fade-in">
+        <strong>「調査はやった。でも結果を見ても何も変わらなかった」</strong>
+        <span>→ 放置すると「どうせ変わらない」という諦めが加速し、来年の回答率も下がります。</span>
+      </li>
+      <li class="fade-in fade-in-d1">
+        <strong>「若手が入っても3年以内に辞めていく。現場の空気が重い」</strong>
+        <span>→ 採用コストが年々増え、ベテランの負担が増し、品質にも影響が出始めます。</span>
+      </li>
+      <li class="fade-in fade-in-d2">
+        <strong>「定年間近のベテランの技術が、どこにも残っていない」</strong>
+        <span>→ 世代交代が進むほど、現場の暗黙知が失われ続けます。</span>
+      </li>
+      <li class="fade-in fade-in-d3">
+        <strong>「経営会議で決めたことが、現場には全く届いていない」</strong>
+        <span>→ 経営と現場の断絶が深まるほど、施策の実行力が落ちていきます。</span>
+      </li>
+      <li class="fade-in fade-in-d4">
+        <strong>「人事は採用と給与計算で手一杯。組織の問題に向き合う人間がいない」</strong>
+        <span>→ 専任リソースがなくても、外部からの伴走で組織改善は進められます。</span>
+      </li>
+    </ul>
   </div>
 </section>
 
@@ -449,29 +641,29 @@
 <section id="services">
   <div class="container">
     <p class="section-label">Services</p>
-    <h2>提供できる支援メニュー</h2>
+    <h2 class="fade-in">提供できる支援メニュー</h2>
     <div class="services-grid">
-      <div class="service-card">
+      <div class="service-card fade-in">
         <div class="service-num">①</div>
         <h3>従業員エンゲージメント調査の<br>設計・導入・運用支援</h3>
         <p>自社の課題に合った設問設計、ツール選定、「回答が改善施策に直結する」調査設計までを支援。年2回の調査運営の実務経験にもとづき、形だけで終わらない仕組みをつくります。</p>
       </div>
-      <div class="service-card">
+      <div class="service-card fade-in fade-in-d1">
         <div class="service-num">②</div>
         <h3>サーベイ結果を<br>"現場が動く施策"に変える伴走支援</h3>
         <p>現場の声を「要因 → 目指す姿 → 施策コンセプト」へ体系化し、経営層・人事・現場をつなぐ対話の場づくりまで伴走。調査を"やりっぱなし"にしません。</p>
       </div>
-      <div class="service-card">
+      <div class="service-card fade-in fade-in-d2">
         <div class="service-num">③</div>
         <h3>生成AIを活用した<br>「従業員の声」分析</h3>
         <p>自由記述コメントを生成AIで分析し、課題の根本要因を効率的に抽出する分析の型を構築・導入。最新手法を"成果につながる形"で実装します。</p>
       </div>
-      <div class="service-card">
+      <div class="service-card fade-in fade-in-d3">
         <div class="service-num">④</div>
         <h3>製造・開発現場の<br>組織課題の診断と打ち手づくり</h3>
-        <p>サイロ化、経営と現場の断絶、技術・知見の世代間継承、海外拠点との文化差など、ものづくり組織に特有の課題を当事者目線で診断し、現実的な打ち手を設計します。</p>
+        <p>サイロ化、経営と現場の断絶、技術・知見の世代間継承など、ものづくり組織に特有の課題を当事者目線で診断し、現実的な打ち手を設計します。</p>
       </div>
-      <div class="service-card">
+      <div class="service-card fade-in fade-in-d4">
         <div class="service-num">⑤</div>
         <h3>開発マネジメント・<br>プロセス標準化の助言</h3>
         <p>開発体制の設計、業務プロセスの標準化、管理職のマネジメント支援など、開発部門の運営課題に対する助言を行います。</p>
@@ -480,38 +672,23 @@
   </div>
 </section>
 
-<!-- こんな課題をお持ちの企業に -->
-<section id="issues">
-  <div class="container">
-    <p class="section-label">For You</p>
-    <h2>こんな課題をお持ちの企業に貢献できます</h2>
-    <ul class="issues-list">
-      <li>エンゲージメント調査を導入したが、結果を改善活動に活かしきれていない</li>
-      <li>製造・開発現場の風通しやモチベーション、定着に課題を感じている</li>
-      <li>ベテランの技術・知見の継承が進まず、世代間のギャップがある</li>
-      <li>経営層と現場の意識にズレがあり、施策が現場に浸透しない</li>
-      <li>組織開発の専任リソースを社内に持てない中堅・中小の製造業</li>
-    </ul>
-  </div>
-</section>
-
 <!-- 強み -->
 <section id="strengths">
   <div class="container">
     <p class="section-label">Why Choose Us</p>
-    <h2>私を選ぶ理由（強み・差別化）</h2>
+    <h2 class="fade-in">私を選ぶ理由</h2>
     <div class="strength-grid">
-      <div class="strength-card">
+      <div class="strength-card fade-in">
         <div class="strength-icon">🏭</div>
         <h3>当事者性</h3>
         <p>40年のものづくり現場を経験した技術者。机上論ではなく、現場が何に困りどこで歯車が噛み合わなくなるかを肌で理解しています。</p>
       </div>
-      <div class="strength-card">
+      <div class="strength-card fade-in fade-in-d1">
         <div class="strength-icon">⚙️</div>
         <h3>実装力</h3>
-        <p>調査の設計から施策化、生成AIによる分析導入まで、自ら手を動かして完遂してきました。コンサルで終わらせず、確実に動く仕組みをつくります。</p>
+        <p>調査の設計から施策化、生成AIによる分析導入まで、自ら手を動かして完遂。コンサルで終わらせず、確実に動く仕組みをつくります。</p>
       </div>
-      <div class="strength-card">
+      <div class="strength-card fade-in fade-in-d2">
         <div class="strength-icon">🌉</div>
         <h3>橋渡し力</h3>
         <p>経営層（CTO・部門トップ）・人事・現場をつなぎ、立場の異なる関係者を同じ方向へ動かす役割を担ってきました。</p>
@@ -520,22 +697,32 @@
   </div>
 </section>
 
+<!-- 中間CTA -->
+<section id="mid-cta">
+  <div class="container">
+    <p class="mid-label fade-in">NEXT STEP</p>
+    <h2 class="fade-in">「もう少し詳しく聞いてみたい」と<br>思ったら、まず話してみてください。</h2>
+    <p class="fade-in">初回相談（30分）は完全無料です。<br>売り込みは一切しません。まずはご状況をお聞きするだけで構いません。</p>
+    <a href="#contact" class="btn-white fade-in">30分・無料相談を申し込む →</a>
+    <p class="cta-note fade-in">※ 現在、月3〜4社のスポット・顧問相談を受け付けています</p>
+  </div>
+</section>
+
 <!-- プロフィール -->
 <section id="profile">
   <div class="container">
     <p class="section-label">Profile</p>
-    <h2>代表者プロフィール</h2>
-    <div class="profile-inner">
+    <h2 class="fade-in">代表者プロフィール</h2>
+    <div class="profile-inner fade-in">
       <div class="profile-avatar">👤</div>
       <div class="profile-text">
         <h3>安田 守（やすだ まもる）</h3>
         <p class="role">安田組織デザイン 代表｜組織開発コンサルタント・顧問</p>
         <p class="career-label">経歴</p>
         <p>ブラザー工業、日本レーザー電子を経て、1990年よりオリンパス株式会社。精密・医療機器のメカニカル開発設計、手術ロボット共同研究、開発部門の企画管理、全社変革プラン「Transform Olympus」参画を経て、近年は医療機器部門で組織開発・エンゲージメント領域を担当。2026年4月退職、独立。</p>
-        <p class="career-label">実績サマリー</p>
       </div>
     </div>
-    <div class="achievements">
+    <div class="achievements fade-in">
       <h4>主な実績</h4>
       <ul class="achievement-list">
         <li>4,000人規模の医療機器部門で、従業員エンゲージメント調査（組織健康サーベイ）の企画・運営・分析・施策化を主導。</li>
@@ -546,16 +733,71 @@
   </div>
 </section>
 
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <p class="section-label">FAQ</p>
+    <h2 class="fade-in">よくあるご質問</h2>
+    <div class="faq-list">
+      <details class="fade-in">
+        <summary>相談したら、必ず契約しないといけませんか？<span class="faq-icon">＋</span></summary>
+        <p class="faq-answer">いいえ。初回ご相談（30分）は完全無料で、その後の提案・見積もりにも一切の義務はありません。「話を聞いてみたが、今は時期ではない」で終わっても構いません。まずは気軽にご状況をお聞かせください。</p>
+      </details>
+      <details class="fade-in fade-in-d1">
+        <summary>費用の目安を教えてください。<span class="faq-icon">＋</span></summary>
+        <p class="faq-answer">スポット相談（1〜2時間）から月次顧問契約まで、御社の規模・目的に応じて柔軟にご提案します。大手コンサルと比較して大幅にコストを抑えながら、実務に直結した支援を提供しています。まずはご相談内容をお聞きした上でご提案しますので、お気軽にご連絡ください。</p>
+      </details>
+      <details class="fade-in fade-in-d2">
+        <summary>大企業出身とのことですが、中小企業でも対応できますか？<span class="faq-icon">＋</span></summary>
+        <p class="faq-answer">はい、中堅・中小の製造業こそ、私が最も貢献できると考えています。大企業の手法をそのまま持ち込むのではなく、専任リソースが限られた御社の実情に合った「動く仕組み」を一緒につくります。「うちの規模に合うか不安」という場合こそ、まずお話しください。</p>
+      </details>
+      <details class="fade-in fade-in-d3">
+        <summary>初回相談では、どんな準備が必要ですか？<span class="faq-icon">＋</span></summary>
+        <p class="faq-answer">特別な準備は不要です。「今、こんなことで困っている」「こうしたいが方法がわからない」という状況を、言葉にできる範囲でお聞かせいただければ十分です。オンライン（Zoom等）・対面いずれも対応します。</p>
+      </details>
+    </div>
+  </div>
+</section>
+
 <!-- お問い合わせ -->
 <section id="contact">
   <div class="container">
     <p class="section-label">Contact</p>
-    <h2>お問い合わせ</h2>
-    <p class="contact-intro">
+    <h2 class="fade-in">お問い合わせ</h2>
+
+    <div class="contact-steps fade-in">
+      <h3>ご相談の流れ</h3>
+      <div class="steps-grid">
+        <div class="step">
+          <div><span class="step-num">1</span></div>
+          <h4>フォームで送信</h4>
+          <p>ご相談内容を簡単にお知らせください（所要2分）</p>
+        </div>
+        <div class="step">
+          <div><span class="step-num">2</span></div>
+          <h4>初回オンライン面談</h4>
+          <p>課題の確認と方向性の整理（30〜60分・無料）</p>
+        </div>
+        <div class="step">
+          <div><span class="step-num">3</span></div>
+          <h4>支援プランのご提案</h4>
+          <p>御社に合った支援内容・進め方をご提案します</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="trust-badges fade-in">
+      <span>✓ 初回相談・無料</span>
+      <span>✓ 売り込みなし</span>
+      <span>✓ 守秘義務厳守</span>
+      <span>✓ スポット相談から対応可</span>
+    </div>
+
+    <p class="contact-intro fade-in">
       サービスへのご質問・ご相談は、以下のフォームからお気軽にどうぞ。<br>
-      初回相談は無料で承っております。スポット・中長期いずれもご相談に応じます。
+      24時間以内にご返信します。
     </p>
-    <form action="https://formspree.io/f/xbderyrg" method="POST">
+    <form action="https://formspree.io/f/xbderyrg" method="POST" class="fade-in">
       <div>
         <label for="name">お名前 <span style="color:#c00">*</span></label>
         <input type="text" id="name" name="name" placeholder="山田 太郎" required>
@@ -581,9 +823,9 @@
       </div>
       <div>
         <label for="message">お問い合わせ内容 <span style="color:#c00">*</span></label>
-        <textarea id="message" name="message" placeholder="ご相談内容をご記入ください" required></textarea>
+        <textarea id="message" name="message" placeholder="ご相談内容をご記入ください。どんな些細なことでも構いません。" required></textarea>
       </div>
-      <button type="submit" class="submit-btn">送信する</button>
+      <button type="submit" class="submit-btn">相談内容を送信する（24時間以内に返信します）</button>
     </form>
   </div>
 </section>
@@ -594,6 +836,37 @@
   <p style="margin-top:0.3rem;font-size:0.8rem;color:#8aa0c0;">製造業・中小企業の組織開発顧問</p>
   <p class="footer-copy">&copy; 2026 Yasuda Organizational Design. All rights reserved.</p>
 </footer>
+
+<script>
+  // ハンバーガーメニュー
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+  function closeMenu() {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // スクロールでナビ変化
+  window.addEventListener('scroll', () => {
+    document.getElementById('site-header').classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // フェードイン（Intersection Observer）
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
 
 </body>
 </html>
